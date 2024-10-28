@@ -25,10 +25,11 @@ def generate_manual(nome_pasta, machine):
 def generate_resume(nome_pasta, nome_manual, problem):
     with open(f"{nome_pasta}/{nome_manual}", "r") as file:
         manual = file.read()
+
     messages = [
         {
             "role": "user",
-            "content": f"""Gostaria de um resumo do manual {nome_manual} visando solucionar um problema de {problem}. O manual é o seguinte: {manual}"""
+            "content": f"""Faça um resumo do manual considerando o problema {problem}. Manual: {manual}"""
         }
     ]
     response = openai.ChatCompletion.create(
@@ -38,13 +39,13 @@ def generate_resume(nome_pasta, nome_manual, problem):
 
     return response.choices[0].message
 
-def generate_tool_list(nome_pasta, nome_manual):
+def generate_tool_list(nome_pasta, nome_manual, problem):
     with open(f"{nome_pasta}/{nome_manual}", "r") as file:
         manual = file.read()
     messages = [
         {
             "role": "user",
-            "content": f"""Gostaria de uma lista de ferramentas necessárias para o manual {nome_manual}. O manual é o seguinte: {manual}"""
+            "content": f"""Gostaria de uma lista de ferramentas necessárias para seguir o manual considerando o problema {problem}. O formato da lista deve ser as ferramentas separadas por quebra de linha. O manual é o seguinte: {manual}"""
         }
     ]
     response = openai.ChatCompletion.create(

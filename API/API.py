@@ -54,6 +54,5 @@ async def generate_resume():
 
 @app.get("/generate_tool_list")
 async def generate_tool_list():
-    product.lista_ferramentas = IA.generate_tool_list(nome_pasta, product.manual)["content"]
+    product.lista_ferramentas = IA.generate_tool_list(nome_pasta, product.manual, order.problema)["content"]
     return {"message": product.lista_ferramentas}
-
